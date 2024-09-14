@@ -41,34 +41,6 @@ services:
     ports:
       - "3308:3306"
     restart: always
-        
-  php:
-    container_name: php-apache
-     # Dockerfileを使って、コンテナをビルドするという指定
-    build:
-      context: ./php
-      dockerfile: Dockerfile
-    networks:
-      - kita_lunch
-
-    # platform: linux/x86_64 Mac OS M1 で必要
-
-    # コンテナとホスト側のディレクトリを同期する場所の指定。kita_lunchのソースが入る予定の場所
-    # 絶対パスの場合は、ドッカーにホスト側のフォルダーを共有することを許可する必要があるので、ドッカーデスクトップの
-    # 次の場所を順番にクリックし、指定の共有フォルダを許可する
-    # Preferences... -> Resources -> File Sharing.
-    volumes:
-      #  - /Applications/MAMP/htdocs:/var/www/html
-        - /Users/takaonishii/overview:/var/www/html
-      #  - ./html:/var/www/html
-
-    # どのポートを開いて繋ぐか。例）コンテナの80番ポートを開いて、ホストの8080番につなぐ
-    ports:
-      - 8080:80
-      # - '2222:22'
-    
-    # データベースの初期化時のファイルコピーを可能にするため、権限の変更)
-    # command: chown -R www-data:www-data /var/www/html
 
   phpmyadmin:
     container_name: phpMyAdmin
