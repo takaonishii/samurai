@@ -5,21 +5,22 @@ version: "3"
 services:
 
 # データベース(maria DB)を動かすコンテナ
-  kita_lunch_db:
-    container_name: kita_lunch_db
+  samurai_db:
+    container_name: samurai_db
 
     # Docker Hubからmaria DBの最新版の公式イメージをダウンロードしてくる指定
+    # image: mysql:8.0.28
     image: mariadb:latest
 
     # どのネットワークにつなげるのか指定
     networks:
-      - kita_lunch
-    # platform: linux/amd64
+      - samurai
+    platform: linux/amd64
 
     # コンテナ内の環境変数を指定
     environment:
       - MYSQL_ROOT_PASSWORD=!root
-      - MYSQL_DATABASE=kita_lunch
+      - MYSQL_DATABASE=samurai
       - MYSQL_USER=test
       - MYSQL_PASSWORD=test
       - TZ=Asia/Tokyo
@@ -51,7 +52,7 @@ services:
     # コンテナ内の環境変数を指定
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOSTS=kita_lunch_db
+      - PMA_HOSTS=samurai_db
       # - PMA_USER=test
       # - PMA_PASSWORD=test
     
@@ -63,10 +64,10 @@ services:
       - ./phpmyadmin/sessions:/sessions
 
     networks:
-      - kita_lunch
+      - samurai
 
 networks:
-  kita_lunch:
+  samurai:
   # app_net:
   #   ipv4_address: 172.21.0.1
 
